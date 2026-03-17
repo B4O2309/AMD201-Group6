@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "mIb7hxRXRZY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\baonh\\OneDrive\\Máy tính\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\URLService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\baonh\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
+    "C:\\Users\\baonh\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

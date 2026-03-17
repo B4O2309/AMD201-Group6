@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/APIGateway/APIGateway.csproj" Id="77b693ed-7a76-46ba-8840-7f4dc8b8746b" />
+    <Project Path="WebUI/webui.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+  </Folder>
+  <Folder Name="/src/Services/">
+    <Project Path="src/Services/URLService/URLService.csproj" />
+    <Project Path="src/Services/UserService/UserService.csproj" />
+  </Folder>
+</Solution>

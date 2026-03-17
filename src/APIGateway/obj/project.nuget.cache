@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "nvafKlGt9vA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\baonh\\OneDrive\\Máy tính\\Greenwich\\AMD201\\Coursework_Git\\src\\APIGateway\\APIGateway.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\baonh\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
+    "C:\\Users\\baonh\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

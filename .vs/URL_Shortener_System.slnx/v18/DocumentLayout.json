@@ -1,0 +1,141 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|c:\\users\\baonh\\onedrive\\m\u00E1y t\u00EDnh\\greenwich\\amd201\\coursework_git\\src\\services\\urlservice\\urlservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|solutionrelative:src\\services\\urlservice\\urlservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A49581B-16D1-060F-95A0-EC8EB4FFF0CC}|src\\Services\\UserService\\UserService.csproj|c:\\users\\baonh\\onedrive\\m\u00E1y t\u00EDnh\\greenwich\\amd201\\coursework_git\\src\\services\\userservice\\userservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6A49581B-16D1-060F-95A0-EC8EB4FFF0CC}|src\\Services\\UserService\\UserService.csproj|solutionrelative:src\\services\\userservice\\userservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\URLService\\WeatherForecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:URLService\\WeatherForecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 18,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:136:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:137:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:138:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "URLService.csproj",
+              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\URLService.csproj",
+              "RelativeDocumentMoniker": "src\\Services\\URLService\\URLService.csproj",
+              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\URLService.csproj",
+              "RelativeToolTip": "src\\Services\\URLService\\URLService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-17T09:12:35.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.csproj",
+              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\UserService\\UserService.csproj",
+              "RelativeDocumentMoniker": "src\\Services\\UserService\\UserService.csproj",
+              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\UserService\\UserService.csproj",
+              "RelativeToolTip": "src\\Services\\UserService\\UserService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-17T09:11:17.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\URLService\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "URLService\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\URLService\\WeatherForecast.cs",
+              "RelativeToolTip": "URLService\\WeatherForecast.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T09:05:01.651Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
