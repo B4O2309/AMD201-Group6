@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/APIGateway/APIGateway.csproj" Id="77b693ed-7a76-46ba-8840-7f4dc8b8746b" />
     <Project Path="WebUI/webui.esproj">
