@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
+      "RelativeMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|solutionrelative:docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|c:\\users\\baonh\\onedrive\\m\u00E1y t\u00EDnh\\greenwich\\amd201\\coursework_git\\src\\services\\urlservice\\controllers\\urlcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|solutionrelative:src\\services\\urlservice\\controllers\\urlcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|c:\\users\\baonh\\onedrive\\m\u00E1y t\u00EDnh\\greenwich\\amd201\\coursework_git\\src\\services\\urlservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|solutionrelative:src\\services\\urlservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
-      "RelativeMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|solutionrelative:docker-compose.yml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{07851D10-251B-54C2-D40F-6B5DB5555119}|src\\Services\\URLService\\URLService.csproj|c:\\users\\baonh\\onedrive\\m\u00E1y t\u00EDnh\\greenwich\\amd201\\coursework_git\\src\\services\\urlservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -86,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 18,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -162,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "URLController.cs",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Controllers\\URLController.cs",
               "RelativeDocumentMoniker": "src\\Services\\URLService\\Controllers\\URLController.cs",
@@ -175,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UrlConsumer.cs",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\RabbitMQ\\UrlConsumer.cs",
               "RelativeDocumentMoniker": "src\\Services\\URLService\\RabbitMQ\\UrlConsumer.cs",
@@ -188,33 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\appsettings.json",
-              "RelativeDocumentMoniker": "src\\Services\\URLService\\appsettings.json",
-              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\appsettings.json",
-              "RelativeToolTip": "src\\Services\\URLService\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-17T12:26:28.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Program.cs",
-              "RelativeDocumentMoniker": "src\\Services\\URLService\\Program.cs",
-              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Program.cs",
-              "RelativeToolTip": "src\\Services\\URLService\\Program.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAArwCcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T13:01:53.288Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Url.cs",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Entities\\Url.cs",
               "RelativeDocumentMoniker": "src\\Services\\URLService\\Entities\\Url.cs",
@@ -227,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "src\\Services\\URLService\\Data\\ApplicationDbContext.cs",
@@ -240,7 +214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Base62ShortenerAlgorithmTests.cs.cs",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\IntegrationTests\\Base62ShortenerAlgorithmTests.cs.cs",
               "RelativeDocumentMoniker": "src\\Services\\URLService\\IntegrationTests\\Base62ShortenerAlgorithmTests.cs.cs",
@@ -253,15 +227,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "docker-compose.yml",
               "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\docker-compose.yml",
               "RelativeDocumentMoniker": "docker-compose.yml",
               "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\docker-compose.yml",
               "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAkwCIAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAYwC4AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2026-03-17T12:32:45.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Services\\URLService\\Program.cs",
+              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\Program.cs",
+              "RelativeToolTip": "src\\Services\\URLService\\Program.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAArwCcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-17T13:01:53.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\Services\\URLService\\appsettings.json",
+              "ToolTip": "C:\\Users\\baonh\\OneDrive\\M\u00E1y t\u00EDnh\\Greenwich\\AMD201\\Coursework_Git\\src\\Services\\URLService\\appsettings.json",
+              "RelativeToolTip": "src\\Services\\URLService\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-17T12:26:28.954Z",
               "EditorCaption": ""
             },
             {
