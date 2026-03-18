@@ -79,7 +79,7 @@ namespace URLService.Controllers
             if (!string.IsNullOrEmpty(cachedUrl))
             {
                 _logger.LogInformation("Cache Hit for code: {Code}", code);
-                return RedirectPermanent(cachedUrl);
+                return Redirect(cachedUrl);
             }
 
             // 2. Cache Miss: Look for the URL in the SQL Database
