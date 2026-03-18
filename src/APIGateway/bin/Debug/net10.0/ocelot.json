@@ -1,0 +1,31 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/auth/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user-service",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/auth/{everything}",
+            "UpstreamMethods": [ "Get", "Post", "Put", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/url/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "url-service",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/url/{everything}",
+            "UpstreamMethods": [ "Get", "Post", "Put", "Delete" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://your-gateway-url.com"
+    }
+}
