@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -9,57 +12,59 @@ namespace URLService.RabbitMQ
         private IConnection? _connection;
         private IChannel? _channel;
         private readonly string _queueName = "user_events";
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<UrlConsumer> _logger;
+
+        public UrlConsumer(IConfiguration configuration, ILogger<UrlConsumer> logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // 1. Setup connection factory
-            var factory = new ConnectionFactory { HostName = "localhost" }; // Use "rabbitmq" for Docker environments
+            var factory = new ConnectionFactory
+            {
+                HostName = _configuration["RabbitMQ:Host"] ?? "rabbitmq",
+                UserName = _configuration["RabbitMQ:Username"] ?? "guest",
+                Password = _configuration["RabbitMQ:Password"] ?? "guest"
+            };
 
-            // 2. Create Connection and Channel asynchronously
             _connection = await factory.CreateConnectionAsync(stoppingToken);
             _channel = await _connection.CreateChannelAsync(null, stoppingToken);
 
-            // 3. Declare the queue
             await _channel.QueueDeclareAsync(
                 queue: _queueName,
-                durable: false,
+                durable: true,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null,
                 cancellationToken: stoppingToken);
 
-            // 4. Setup the Consumer
             var consumer = new AsyncEventingBasicConsumer(_channel);
             consumer.ReceivedAsync += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-
-                // Process the received message
-                Console.WriteLine($"[URLService] Received message: {message}");
-
+                _logger.LogInformation("[URLService] Received user event: {Message}", message);
                 await Task.CompletedTask;
             };
 
-            // 5. Start consuming
             await _channel.BasicConsumeAsync(
                 queue: _queueName,
                 autoAck: true,
                 consumer: consumer,
                 cancellationToken: stoppingToken);
 
-            // Keep the service running
             while (!stoppingToken.IsCancellationRequested)
-            {
                 await Task.Delay(1000, stoppingToken);
-            }
         }
 
-        public override async void Dispose()
+        public override async Task StopAsync(CancellationToken cancellationToken)
         {
             if (_channel != null) await _channel.CloseAsync();
             if (_connection != null) await _connection.CloseAsync();
-            base.Dispose();
+            await base.StopAsync(cancellationToken);
         }
     }
-}   
+}
