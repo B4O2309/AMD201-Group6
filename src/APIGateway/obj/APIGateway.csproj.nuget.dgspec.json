@@ -53,6 +53,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.1, )"
+            },
+            "Ocelot": {
+              "target": "Package",
+              "version": "[24.1.0, )"
             }
           },
           "imports": [
