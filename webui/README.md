@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# QuickLink — WebUI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for the QuickLink URL Shortener microservices system.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + React Router 7
+- **Axios** for API calls (JWT-based auth)
+- **Vite 8** for dev server & build
+- **Nginx** for production serving (Docker)
 
-## React Compiler
+## Quick Start (Development)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start dev server (port 3000, proxies /gateway/* and /api/* → localhost:5000)
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Make sure the API Gateway is running on `http://localhost:5000`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Build & Run with Docker
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+docker build -t quicklink-webui .
+docker run -p 3000:80 quicklink-webui
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `VITE_API_BASE_URL` | `http://localhost:5000` | API Gateway base URL |
+
+## API Endpoints
+
+### Auth (User Service — via Gateway)
+
+| Method | Endpoint | Body | Description |
+|---|---|---|---|
+| `POST` | `/gateway/auth/login` | `{ email, password }` | Returns `{ token, user }` |
+| `POST` | `/gateway/auth/register` | `{ username, email, password, role }` | Register new user |
+| `GET` | `/gateway/auth/me` | — | Verify token, returns user info |
+
+### URL Service (via Gateway) — ⚠️ endpoints TBD, confirm with Member 1
+
+| Method | Endpoint | Body | Description |
+|---|---|---|---|
+| `POST` | `/api/url/shorten` | `{ url }` | Create short URL |
+| `GET` | `/api/url` | — | Get user's links |
+| `PUT` | `/api/url/:id` | `{ url }` | Update a link |
+| `DELETE` | `/api/url/:id` | — | Delete a link |
+
+## Project Structure
+
+```
+webui/
+├── src/
+│   ├── assets/              # Static images
+│   ├── components/
+│   │   ├── Navbar.jsx       # Top nav with username + role badge
+│   │   ├── ShortenForm.jsx  # URL shorten form
+│   │   └── LinksTable.jsx   # Links data table with actions
+│   ├── context/
+│   │   └── AuthContext.jsx   # JWT auth + fetchMe() on reload
+│   ├── pages/
+│   │   ├── HomePage.jsx     # Landing page with shorten form
+│   │   ├── LoginPage.jsx    # Login (POST /gateway/auth/login)
+│   │   ├── RegisterPage.jsx # Register (POST /gateway/auth/register)
+│   │   └── DashboardPage.jsx# Link management dashboard
+│   ├── services/
+│   │   ├── api.js           # Axios instance + JWT interceptor
+│   │   └── links.js         # URL service API calls
+│   ├── App.jsx              # Routes + ProtectedRoute + GuestRoute
+│   ├── main.jsx             # React entry point
+│   └── index.css            # Global styles + CSS variables
+├── nginx.conf               # Nginx: SPA + /gateway/ + /api/ proxy
+├── Dockerfile               # Multi-stage build (node → nginx)
+├── .dockerignore
+├── .gitignore
+├── .env
+├── index.html
+├── package.json
+└── vite.config.js           # Dev proxy /gateway/ + /api/ → :5000
 ```
