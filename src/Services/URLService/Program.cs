@@ -31,7 +31,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 // ── 3. JWT Authentication ─────────────────────────────────────────────────────
-// URLService validates tokens issued by UserService using the same shared secret key.
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["Key"]
     ?? throw new Exception("JwtSettings:Key is missing from configuration.");
@@ -58,7 +57,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// ── 4. CORS — allow WebUI to call URLService directly ────────────────────────
+// ── 4. CORS ───────────────────────────────────────────────────────────────────
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -73,8 +72,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IURLShortenerAlgorithm, Base62ShortenerAlgorithm>();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<URLService.RabbitMQ.UrlConsumer>();
 
 // ── 6. Auto-migrate DB on startup ─────────────────────────────────────────────
@@ -107,17 +104,11 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "URLService API V1");
-        c.RoutePrefix = "swagger";
-    });
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");          // Must be before UseAuthentication
-app.UseAuthentication();          // Must be before UseAuthorization
+app.UseCors("AllowAll");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
