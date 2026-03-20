@@ -45,3 +45,28 @@ services:
         condition: service_started
       rabbitmq:
         condition: service_started
+
+  userservice:
+    build:
+      context: .
+      dockerfile: src/Services/UserService/Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=UserDb;User Id=sa;Password=23092005@Bao;TrustServerCertificate=True;Encrypt=False
+      - JwtSettings__Key=SuperSecretKey_AtLeast32Characters_ForHS256!
+      - JwtSettings__Issuer=UserService
+      - JwtSettings__Audience=URLShortenerApp
+      - JwtSettings__ExpiresInHours=1
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - Services__URLService=http://urlservice:8080
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      urlservice:
+        condition: service_started
