@@ -426,5 +426,10 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-bin/
-obj/
+
+# Build output - explicit paths
+**/obj/
+**/bin/
+**/*.cache
+**/*.AssemblyInfo.cs
+**/*.AssemblyInfoInputs.cache
