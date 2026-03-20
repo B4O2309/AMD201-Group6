@@ -1,11 +1,5 @@
-# docker-compose.yml — Full system (đặt ở root: /URL-Shortener-System/)
-# Chạy: docker-compose up --build
-
 version: '3.8'
 services:
-
-  # ── Infrastructure ──────────────────────────────────────────
-
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -24,14 +18,48 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
 
   rabbitmq:
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
 
-  # ── Microservices ───────────────────────────────────────────
+  urlservice:
+    build:
+      context: .
+      dockerfile: src/Services/URLService/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=UrlDb;User Id=sa;Password=23092005@Bao;TrustServerCertificate=True;Encrypt=False
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - JwtSettings__Key=SuperSecretKey_AtLeast32Characters_ForHS256!
+      - JwtSettings__Issuer=UserService
+      - JwtSettings__Audience=URLShortenerApp
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
   userservice:
     build:
@@ -45,7 +73,7 @@ services:
       - JwtSettings__Key=SuperSecretKey_AtLeast32Characters_ForHS256!
       - JwtSettings__Issuer=UserService
       - JwtSettings__Audience=URLShortenerApp
-      - JwtSettings__ExpiresInHours=168
+      - JwtSettings__ExpiresInHours=1
       - RabbitMQ__Host=rabbitmq
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest
@@ -54,28 +82,18 @@ services:
       sqlserver:
         condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
 
-  urlservice:
+  apigateway:
     build:
       context: .
-      dockerfile: src/Services/URLService/Dockerfile
+      dockerfile: src/APIGateway/Dockerfile
     ports:
-      - "5000:8080"
+      - "5050:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=UrlDb;User Id=sa;Password=23092005@Bao;TrustServerCertificate=True;Encrypt=False
-      - Redis__ConnectionString=redis:6379
-      - JwtSettings__Key=SuperSecretKey_AtLeast32Characters_ForHS256!
-      - JwtSettings__Issuer=UserService
-      - JwtSettings__Audience=URLShortenerApp
-      - RabbitMQ__Host=rabbitmq
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
     depends_on:
-      sqlserver:
-        condition: service_healthy
-      redis:
+      urlservice:
         condition: service_started
-      rabbitmq:
+      userservice:
         condition: service_started

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Connections;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Channels;
 
 namespace UserService.RabbitMQ
 {
@@ -93,7 +91,7 @@ namespace UserService.RabbitMQ
         private async Task PublishAsync(object payload)
         {
             var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload));
-            var props = new BasicProperties { Persistent = true }; // Survives RabbitMQ restart
+            var props = new BasicProperties { Persistent = true };
 
             await _channel!.BasicPublishAsync(
                 exchange: string.Empty,
