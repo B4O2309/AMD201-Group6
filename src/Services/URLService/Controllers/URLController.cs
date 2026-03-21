@@ -97,9 +97,19 @@ namespace URLService.Controllers
         {
             // 1. Check Redis cache first (fast path)
             string? cachedUrl = await _cache.GetStringAsync(code);
+
             if (!string.IsNullOrEmpty(cachedUrl))
             {
                 _logger.LogInformation("Cache Hit for code: {Code}", code);
+
+                // Always increment click count in DB, even on cache hit
+                var entity = await _context.Urls.FirstOrDefaultAsync(u => u.ShortCode == code);
+                if (entity != null)
+                {
+                    entity.ClickCount = (entity.ClickCount ?? 0) + 1;
+                    await _context.SaveChangesAsync();
+                }
+
                 return Redirect(cachedUrl);
             }
 
