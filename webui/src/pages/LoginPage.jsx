@@ -7,7 +7,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, devLogin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -21,8 +21,6 @@ export default function LoginPage() {
       setError(typeof msg === "string" ? msg : JSON.stringify(msg));
     } finally { setLoading(false); }
   }
-
-  function handleDev(role) { devLogin(role); navigate("/", { replace: true }); }
 
   return (
     <div style={S.page}>
@@ -44,13 +42,6 @@ export default function LoginPage() {
             <Link to="/register" style={{ color: "var(--accent)", fontWeight: 800 }}>Sign up</Link>
           </div>
         </form>
-        <div style={{ marginTop: 20, paddingTop: 16, borderTop: "1px dashed var(--border-strong)" }}>
-          <p style={{ fontSize: 12, color: "var(--text-secondary)", textAlign: "center", marginBottom: 10, fontWeight: 600 }}>Dev Mode — bypass auth</p>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button type="button" className="btn" style={{ flex: 1, fontSize: 13 }} onClick={() => handleDev("Admin")}>Dev Login (Admin)</button>
-            <button type="button" className="btn" style={{ flex: 1, fontSize: 13 }} onClick={() => handleDev("User")}>Dev Login (User)</button>
-          </div>
-        </div>
       </div>
     </div>
   );

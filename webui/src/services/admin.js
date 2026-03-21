@@ -1,35 +1,43 @@
-import { userApi } from "./api.js";
+import api from "./api.js";
 
 /**
- * Admin endpoints (AdminController.cs on UserService)
+ * Admin endpoints (via Gateway → UserService → proxy to URLService)
  * All require [Authorize(Roles = "Admin")]
- *
- *   GET    /api/admin/users                    → [{ id, username, email, role, createdAt }]
- *   DELETE /api/admin/users/{userId}           → { message }
- *   GET    /api/admin/users/{userId}/urls      → proxied to URLService
- *   DELETE /api/admin/urls/{urlId}             → proxied to URLService
  */
 
-/** GET /api/admin/users — all registered users */
+const GATEWAY = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
+
+function fixShortUrl(shortUrl) {
+  if (!shortUrl) return "";
+  try {
+    const url = new URL(shortUrl);
+    return GATEWAY + url.pathname;
+  } catch {
+    return GATEWAY + "/" + shortUrl;
+  }
+}
+
+function fixLink(link) {
+  return { ...link, shortUrl: fixShortUrl(link.shortUrl || link.ShortUrl) };
+}
+
 export async function adminGetUsers() {
-  const res = await userApi.get("/api/admin/users");
+  const res = await api.get("/api/admin/users");
   return Array.isArray(res.data) ? res.data : [];
 }
 
-/** DELETE /api/admin/users/{userId} — delete a user */
 export async function adminDeleteUser(userId) {
-  const res = await userApi.delete(`/api/admin/users/${userId}`);
+  const res = await api.delete(`/api/admin/users/${userId}`);
   return res.data;
 }
 
-/** GET /api/admin/users/{userId}/urls — view a user's URLs (proxied to URLService) */
 export async function adminGetUserLinks(userId) {
-  const res = await userApi.get(`/api/admin/users/${userId}/urls`);
-  return Array.isArray(res.data) ? res.data : [];
+  const res = await api.get(`/api/admin/users/${userId}/urls`);
+  const data = Array.isArray(res.data) ? res.data : [];
+  return data.map(fixLink);
 }
 
-/** DELETE /api/admin/urls/{urlId} — delete any URL (proxied to URLService) */
 export async function adminDeleteLink(urlId) {
-  const res = await userApi.delete(`/api/admin/urls/${urlId}`);
+  const res = await api.delete(`/api/admin/urls/${urlId}`);
   return res.data;
 }
