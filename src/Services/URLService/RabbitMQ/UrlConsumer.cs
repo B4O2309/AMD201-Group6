@@ -12,6 +12,7 @@ namespace URLService.RabbitMQ
         private IConnection? _connection;
         private IChannel? _channel;
         private readonly string _queueName = "user_events";
+        private readonly string _exchangeName = "user-event";
         private readonly IConfiguration _configuration;
         private readonly ILogger<UrlConsumer> _logger;
 
@@ -23,7 +24,6 @@ namespace URLService.RabbitMQ
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // Retry loop — keeps trying until RabbitMQ is ready
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
@@ -38,6 +38,15 @@ namespace URLService.RabbitMQ
                     _connection = await factory.CreateConnectionAsync(stoppingToken);
                     _channel = await _connection.CreateChannelAsync(null, stoppingToken);
 
+                    await _channel.ExchangeDeclareAsync(
+                        exchange: _exchangeName,
+                        type: ExchangeType.Fanout, // Using Fanout so multiple services can subscribe
+                        durable: true,
+                        autoDelete: false,
+                        arguments: null,
+                        cancellationToken: stoppingToken);
+
+                    // 2. Declare the Queue
                     await _channel.QueueDeclareAsync(
                         queue: _queueName,
                         durable: true,
@@ -46,12 +55,23 @@ namespace URLService.RabbitMQ
                         arguments: null,
                         cancellationToken: stoppingToken);
 
+                    await _channel.QueueBindAsync(
+                        queue: _queueName,
+                        exchange: _exchangeName,
+                        routingKey: string.Empty,
+                        cancellationToken: stoppingToken);
+
+                    _logger.LogInformation("[UrlConsumer] Bound Queue {Queue} to Exchange {Exchange}", _queueName, _exchangeName);
+
+                    // 4. Set up Consumer logic
                     var consumer = new AsyncEventingBasicConsumer(_channel);
                     consumer.ReceivedAsync += async (model, ea) =>
                     {
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
-                        _logger.LogInformation("[URLService] Received user event: {Message}", message);
+
+                        _logger.LogInformation("[URLService] >>> RECEIVED EVENT: {Message}", message);
+
                         await Task.CompletedTask;
                     };
 
@@ -61,21 +81,19 @@ namespace URLService.RabbitMQ
                         consumer: consumer,
                         cancellationToken: stoppingToken);
 
-                    _logger.LogInformation("[UrlConsumer] Connected to RabbitMQ, listening on queue: {Queue}", _queueName);
+                    _logger.LogInformation("[UrlConsumer] Listening for messages...");
 
-                    // Keep running until cancelled
+                    // Keep the background task alive
                     while (!stoppingToken.IsCancellationRequested)
                         await Task.Delay(1000, stoppingToken);
                 }
                 catch (OperationCanceledException)
                 {
-                    // Normal shutdown — exit loop
                     break;
                 }
                 catch (Exception ex)
                 {
-                    // RabbitMQ not ready yet — retry after 5 seconds
-                    _logger.LogWarning("[UrlConsumer] RabbitMQ not ready, retrying in 5s. Error: {Error}", ex.Message);
+                    _logger.LogWarning("[UrlConsumer] Connection failed, retrying in 5s... Error: {Error}", ex.Message);
                     await Task.Delay(5000, stoppingToken);
                 }
             }
