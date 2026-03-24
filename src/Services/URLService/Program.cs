@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using URLService.Algorithm;
@@ -74,7 +75,13 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHostedService<URLService.RabbitMQ.UrlConsumer>();
 
-// ── 6. Auto-migrate DB on startup ─────────────────────────────────────────────
+// ── 6. Prevent BackgroundService crash from stopping the host ─────────────────
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+});
+
+// ── 7. Auto-migrate DB on startup ─────────────────────────────────────────────
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -100,7 +107,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// ── 7. Middleware ─────────────────────────────────────────────────────────────
+// ── 8. Middleware ─────────────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
