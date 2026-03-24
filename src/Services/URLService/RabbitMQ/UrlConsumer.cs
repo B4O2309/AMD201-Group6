@@ -23,41 +23,62 @@ namespace URLService.RabbitMQ
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var factory = new ConnectionFactory
-            {
-                HostName = _configuration["RabbitMQ:Host"] ?? "rabbitmq",
-                UserName = _configuration["RabbitMQ:Username"] ?? "guest",
-                Password = _configuration["RabbitMQ:Password"] ?? "guest"
-            };
-
-            _connection = await factory.CreateConnectionAsync(stoppingToken);
-            _channel = await _connection.CreateChannelAsync(null, stoppingToken);
-
-            await _channel.QueueDeclareAsync(
-                queue: _queueName,
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null,
-                cancellationToken: stoppingToken);
-
-            var consumer = new AsyncEventingBasicConsumer(_channel);
-            consumer.ReceivedAsync += async (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                _logger.LogInformation("[URLService] Received user event: {Message}", message);
-                await Task.CompletedTask;
-            };
-
-            await _channel.BasicConsumeAsync(
-                queue: _queueName,
-                autoAck: true,
-                consumer: consumer,
-                cancellationToken: stoppingToken);
-
+            // Retry loop — keeps trying until RabbitMQ is ready
             while (!stoppingToken.IsCancellationRequested)
-                await Task.Delay(1000, stoppingToken);
+            {
+                try
+                {
+                    var factory = new ConnectionFactory
+                    {
+                        HostName = _configuration["RabbitMQ:Host"] ?? "rabbitmq",
+                        UserName = _configuration["RabbitMQ:Username"] ?? "guest",
+                        Password = _configuration["RabbitMQ:Password"] ?? "guest"
+                    };
+
+                    _connection = await factory.CreateConnectionAsync(stoppingToken);
+                    _channel = await _connection.CreateChannelAsync(null, stoppingToken);
+
+                    await _channel.QueueDeclareAsync(
+                        queue: _queueName,
+                        durable: true,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null,
+                        cancellationToken: stoppingToken);
+
+                    var consumer = new AsyncEventingBasicConsumer(_channel);
+                    consumer.ReceivedAsync += async (model, ea) =>
+                    {
+                        var body = ea.Body.ToArray();
+                        var message = Encoding.UTF8.GetString(body);
+                        _logger.LogInformation("[URLService] Received user event: {Message}", message);
+                        await Task.CompletedTask;
+                    };
+
+                    await _channel.BasicConsumeAsync(
+                        queue: _queueName,
+                        autoAck: true,
+                        consumer: consumer,
+                        cancellationToken: stoppingToken);
+
+                    _logger.LogInformation("[UrlConsumer] Connected to RabbitMQ, listening on queue: {Queue}", _queueName);
+
+                    // Keep running until cancelled
+                    while (!stoppingToken.IsCancellationRequested)
+                        await Task.Delay(1000, stoppingToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    // Normal shutdown — exit loop
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    // RabbitMQ not ready yet — retry after 5 seconds
+                    _logger.LogWarning("[UrlConsumer] RabbitMQ not ready, retrying in 5s. Error: {Error}", ex.Message);
+                    await Task.Delay(5000, stoppingToken);
+                }
+            }
         }
 
         public override async Task StopAsync(CancellationToken cancellationToken)
